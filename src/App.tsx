@@ -35,12 +35,17 @@ export default function App() {
   const [deletingItem, setDeletingItem] = useState<QRCodeItem | null>(null);
   const [activatingItem, setActivatingItem] = useState<QRCodeItem | null>(null);
 
-  // Routing state for /q/:id
+  // Routing state for /q/:id or ?scan=:id
   const [currentRoute, setCurrentRoute] = useState<{ path: string; id?: string }>(() => {
     const pathname = window.location.pathname;
+    const searchParams = new URLSearchParams(window.location.search);
+    const scanId = searchParams.get('scan');
     if (pathname.startsWith('/q/')) {
       const id = pathname.replace('/q/', '').trim();
       return { path: 'scan', id };
+    }
+    if (scanId) {
+      return { path: 'scan', id: scanId.trim() };
     }
     return { path: 'home' };
   });
@@ -64,9 +69,13 @@ export default function App() {
   useEffect(() => {
     const handlePopState = () => {
       const pathname = window.location.pathname;
+      const searchParams = new URLSearchParams(window.location.search);
+      const scanId = searchParams.get('scan');
       if (pathname.startsWith('/q/')) {
         const id = pathname.replace('/q/', '').trim();
         setCurrentRoute({ path: 'scan', id });
+      } else if (scanId) {
+        setCurrentRoute({ path: 'scan', id: scanId.trim() });
       } else {
         setCurrentRoute({ path: 'home' });
       }
