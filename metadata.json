@@ -1,0 +1,6 @@
+{
+  "name": "QR Generator dengan Aktivasi PIN",
+  "description": "Aplikasi web fullstack untuk pembuatan QR code kosong dan aktivasi cepat menggunakan PIN keamanan untuk redirect tautan tujuan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
